@@ -1,0 +1,18 @@
+name: DiscordLogger
+version: 1.0
+main: com.DiscordLogger.Main
+api-version: 1.21
+authors:
+  - "Lachlan Scott"
+description: |
+  A plugin to log Minecraft events and send them to a Discord webhook.
+
+commands:
+  discordlog:
+    description: Sends a test log to the Discord webhook
+    usage: /discordlog
+
+permissions:
+  discordlogger.use:
+    description: "Allows the user to trigger the /discordlog command"
+    default: op
