@@ -1,3 +1,14 @@
-#INSERT YOUR OWN WEBHOOK URL BELOW
+# MAKE SURE TO UPDATE WEBHOOK URL
 
 discord-webhook-url: "INSERT-WEBHOOK-URL"
+
+# Set to true to log, if you do not want to log the items set to false
+
+log-player-join: true
+log-player-quit: true
+log-player-chat: true
+log-server-command: true
+log-block-break: false
+log-block-place: false
+log-player-death: false
+

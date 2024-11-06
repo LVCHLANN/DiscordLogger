@@ -8,11 +8,14 @@ description: |
   A plugin to log Minecraft events and send them to a Discord webhook.
 
 commands:
-  reload:
+  discordlogger:
     description: Reloads the plugin and config.yml file
     usage: /discordlogger reload
+    aliases: [dlreload]
+    permission: discordlogger.reload  # Add this line for permission
 
 permissions:
-  discordlogger.use:
+  discordlogger.reload:
     description: "Allows the user to trigger the /discordlogger reload command"
     default: op
+

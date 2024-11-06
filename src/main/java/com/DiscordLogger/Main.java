@@ -1,24 +1,22 @@
 package com.DiscordLogger;
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.ServerCommandEvent;
-import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.json.JSONObject;
+import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.io.File;
-import java.io.InputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Objects;
 
 public class Main extends JavaPlugin implements Listener {
 
@@ -26,7 +24,36 @@ public class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        loadConfig();
+        // Create the "DiscordLogger" folder if it doesn't exist
+        File pluginFolder = new File(getDataFolder(), "DiscordLogger");
+        if (!pluginFolder.exists()) {
+            if (pluginFolder.mkdir()) {
+                getLogger().info("Created folder: DiscordLogger");
+            } else {
+                getLogger().warning("Failed to create folder: DiscordLogger. Please check permissions.");
+            }
+        }
+
+        // Create the config file if it doesn't exist
+        File configFile = new File(pluginFolder, "config.yml");
+        if (!configFile.exists()) {
+            try {
+                saveResource("config.yml", false);
+                getLogger().info("Created config.yml with placeholder webhook URL.");
+            } catch (Exception e) {
+                getLogger().warning("Could not create config.yml: " + e.getMessage());
+            }
+        }
+
+        // Load the configuration
+        saveDefaultConfig();
+        discordWebhookUrl = getConfig().getString("discord-webhook-url");
+
+        if (discordWebhookUrl == null || discordWebhookUrl.equals("INSERT-WEBHOOK-URL")) {
+            getLogger().warning("Discord webhook URL is not set in the config file! Please update config.yml.");
+        }
+
+        // Register events
         Bukkit.getPluginManager().registerEvents(this, this);
         getLogger().info("DiscordLogger plugin enabled!");
     }
@@ -36,81 +63,68 @@ public class Main extends JavaPlugin implements Listener {
         getLogger().info("DiscordLogger plugin disabled.");
     }
 
+    // Command to reload the config
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (command.getName().equalsIgnoreCase("discordlogger") && args.length == 1 && args[0].equalsIgnoreCase("reload")) {
+            if (sender.hasPermission("discordlogger.reload")) {
+                reloadConfig();
+                discordWebhookUrl = getConfig().getString("discord-webhook-url");
+                sender.sendMessage("[DiscordLogger] Config reloaded successfully!");
+                return true;
+            } else {
+                sender.sendMessage("[DiscordLogger] You do not have permission to reload the config.");
+                return false;
+            }
+        }
+        return false;
+    }
+
+    // Log player join event
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        logToDiscord("Player Join", event.getPlayer().getName() + " has joined the server.");
+        if (getConfig().getBoolean("log-player-join")) {
+            logToDiscord("Player Join", event.getPlayer().getName() + " joined the server.");
+        }
     }
 
+    // Log player quit event
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        logToDiscord("Player Quit", event.getPlayer().getName() + " has left the server.");
+        if (getConfig().getBoolean("log-player-quit")) {
+            logToDiscord("Player Quit", event.getPlayer().getName() + " left the server.");
+        }
     }
 
+    // Log server commands
     @EventHandler
     public void onServerCommand(ServerCommandEvent event) {
-        logToDiscord("Server Command", "Command executed: /" + event.getCommand());
-    }
-
-    private void loadConfig() {
-        File discordLoggerFolder = new File(getDataFolder().getParent(), "DiscordLogger");
-
-        if (!discordLoggerFolder.exists()) {
-            if (discordLoggerFolder.mkdir()) {
-                getLogger().info("DiscordLogger folder created successfully.");
-            } else {
-                getLogger().severe("Failed to create DiscordLogger folder. Please check permissions.");
-            }
-        } else {
-            getLogger().info("DiscordLogger folder already exists.");
-        }
-
-        File configFile = new File(discordLoggerFolder, "config.yml");
-        if (!configFile.exists()) {
-            try (InputStream in = getResource("config.yml");
-                 FileOutputStream out = new FileOutputStream(configFile)) {
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = in.read(buffer)) > 0) {
-                    out.write(buffer, 0, length);
-                }
-                getLogger().info("Config file 'config.yml' created successfully.");
-            } catch (IOException e) {
-                getLogger().severe("Could not create config.yml: " + e.getMessage());
-            }
-        } else {
-            getLogger().info("Config file 'config.yml' already exists.");
-        }
-
-        saveDefaultConfig();
-        discordWebhookUrl = getConfig().getString("discord-webhook-url");
-
-        if (discordWebhookUrl == null || discordWebhookUrl.equals("INSERT-WEBHOOK-URL")) {
-            getLogger().warning("Discord webhook URL is not set in the config file! Please update config.yml.");
+        if (getConfig().getBoolean("log-server-commands")) {
+            logToDiscord("Server Command", "Command executed: /" + event.getCommand());
         }
     }
 
+    // General method to log messages to Discord via webhook (asynchronously)
     private void logToDiscord(String eventType, String message) {
-        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+        Bukkit.getScheduler().runTask(this, () -> {
             try {
                 JSONObject json = new JSONObject();
-                String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-                String formattedMessage = String.format("`[%s]` **%s** %s", timestamp, eventType, message);
-                json.put("content", formattedMessage);
+                json.put("content", "**" + eventType + "**: " + message);
 
+                // Send the log to Discord webhook
                 HttpURLConnection connection = (HttpURLConnection) new URL(discordWebhookUrl).openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setDoOutput(true);
 
+                // Send the JSON payload as the POST body
                 try (OutputStream os = connection.getOutputStream()) {
-                    byte[] input = json.toString().getBytes(StandardCharsets.UTF_8);
+                    byte[] input = json.toString().getBytes(StandardCharsets.UTF_8);  // Use UTF-8 charset
                     os.write(input, 0, input.length);
                 }
 
                 int responseCode = connection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
-                    getLogger().info("Message sent successfully to Discord.");
-                } else {
+                if (responseCode != HttpURLConnection.HTTP_OK) {
                     getLogger().warning("Failed to send message to Discord, response code: " + responseCode);
                 }
 
