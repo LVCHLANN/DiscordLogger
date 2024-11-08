@@ -1,21 +1,11 @@
 name: DiscordLogger
-version: 1.1-ALPHA
 main: com.DiscordLogger.Main
+version: 1.1-ALPHA
 api-version: 1.21
-authors:
-  - "Lachlan Scott"
-description: |
-  A plugin to log Minecraft events and send them to a Discord webhook.
-
+description: A plugin that logs events to Discord.
 commands:
   discordlogger:
-    description: Reloads the plugin and config.yml file
+    description: Main command for DiscordLogger
     usage: /discordlogger reload
-    aliases: [dlreload]
-    permission: discordlogger.reload  # Add this line for permission
-
-permissions:
-  discordlogger.reload:
-    description: "Allows the user to trigger the /discordlogger reload command"
-    default: op
-
+    permission: discordlogger.reload
+    permission-message: You do not have permission to execute this command.
