@@ -7,7 +7,7 @@
 
     <groupId>com.DiscordLogger</groupId>
     <artifactId>DiscordLogger</artifactId>
-    <version>1.2-ALPHA</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>DiscordLogger</name>
