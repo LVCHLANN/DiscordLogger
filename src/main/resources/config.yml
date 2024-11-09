@@ -8,7 +8,8 @@ log-player-join: true
 log-player-quit: true
 log-player-chat: true
 log-server-command: true
+log-player-death: true
 log-block-break: false
 log-block-place: false
-log-player-death: false
+
 

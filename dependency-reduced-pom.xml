@@ -4,7 +4,7 @@
   <groupId>com.DiscordLogger</groupId>
   <artifactId>DiscordLogger</artifactId>
   <name>DiscordLogger</name>
-  <version>1.1-ALPHA</version>
+  <version>1.2-ALPHA</version>
   <build>
     <plugins>
       <plugin>

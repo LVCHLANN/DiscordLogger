@@ -1,11 +1,15 @@
 name: DiscordLogger
+version: 1.2-ALPHA
 main: com.DiscordLogger.Main
-version: 1.1-ALPHA
 api-version: 1.21
-description: A plugin that logs events to Discord.
+description: A plugin to log player events to Discord via a webhook.
 commands:
   discordlogger:
     description: Main command for DiscordLogger
     usage: /discordlogger reload
     permission: discordlogger.reload
     permission-message: You do not have permission to execute this command.
+permissions:
+  discordlogger.reload:
+    description: Allows reloading of the DiscordLogger configuration.
+    default: op
