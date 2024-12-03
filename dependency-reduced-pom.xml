@@ -4,7 +4,7 @@
   <groupId>com.DiscordLogger</groupId>
   <artifactId>DiscordLogger</artifactId>
   <name>DiscordLogger</name>
-  <version>1.0</version>
+  <version>1.0.1</version>
   <build>
     <plugins>
       <plugin>
@@ -39,7 +39,7 @@
     <dependency>
       <groupId>io.papermc.paper</groupId>
       <artifactId>paper-api</artifactId>
-      <version>1.21.1-R0.1-SNAPSHOT</version>
+      <version>1.21.3-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
