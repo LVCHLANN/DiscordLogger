@@ -17,7 +17,8 @@ public class ReloadCommand implements CommandExecutor {
         if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             if (sender.hasPermission("discordlogger.reload")) {
                 plugin.reloadConfig();
-                plugin.discordWebhookUrl = plugin.getConfig().getString("discord-webhook-url");
+                plugin.setDiscordWebhookUrl(plugin.getConfig().getString("discord-webhook-url"));
+                plugin.setServerName(plugin.getConfig().getString("server-name", "")); // Update serverName
                 sender.sendMessage("[DiscordLogger] Config reloaded successfully!");
                 return true;
             } else {

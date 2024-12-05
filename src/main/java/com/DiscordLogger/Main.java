@@ -2,48 +2,47 @@ package com.DiscordLogger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.logging.Logger;
 
 public class Main extends JavaPlugin {
 
-    public String discordWebhookUrl;
-    private Logger logger;
+    private String discordWebhookUrl;
+    private String serverName;
 
     @Override
     public void onEnable() {
-        saveDefaultConfig();
-        discordWebhookUrl = getConfig().getString("discord-webhook-url");
+        try {
+            saveDefaultConfig();
+            discordWebhookUrl = getConfig().getString("discord-webhook-url");
+            serverName = getConfig().getString("server-name", ""); // Default to empty string if not provided
 
-        if (discordWebhookUrl == null || discordWebhookUrl.equals("INSERT-WEBHOOK-URL")) {
-            getLogger().warning("Discord webhook URL is not set in the config file! Please update config.yml.");
+            if (discordWebhookUrl == null || discordWebhookUrl.equals("INSERT-WEBHOOK-URL")) {
+                getLogger().warning("Discord webhook URL is not set in the config file! Please update config.yml.");
+            }
+
+            // Register events and command
+            Bukkit.getPluginManager().registerEvents(new EventListener(this), this);
+            if (getCommand("discordlogger") != null) {
+                getCommand("discordlogger").setExecutor(new ReloadCommand(this));
+            } else {
+                getLogger().severe("Command 'discordlogger' is missing from plugin.yml!");
+            }
+
+            getLogger().info("DiscordLogger plugin enabled!");
+
+        } catch (Exception e) {
+            getLogger().severe("Error enabling DiscordLogger plugin: " + e.getMessage());
+            e.printStackTrace();
         }
-
-        logger = getLogger();
-        Bukkit.getPluginManager().registerEvents(new EventListener(this, logger), this);
-
-        if (getCommand("discordlogger") != null) {
-            getCommand("discordlogger").setExecutor(new ReloadCommand(this));
-        } else {
-            getLogger().severe("Command 'discordlogger' is missing from plugin.yml!");
-        }
-
-        getLogger().info("DiscordLogger plugin enabled!");
     }
 
     @Override
     public void onDisable() {
         getLogger().info("DiscordLogger plugin disabled.");
-    }
-
-    // Changed from private to public
-    public void setDiscordWebhookUrl(String url) {
-        this.discordWebhookUrl = url;
     }
 
     public void logToDiscord(String eventType, String message) {
@@ -52,6 +51,11 @@ public class Main extends JavaPlugin {
             return;
         }
 
+        // Include server name in the log if specified
+        String formattedMessage = serverName.isEmpty()
+                ? message
+                : String.format("[%s] %s", serverName, message);
+
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
             try {
                 HttpURLConnection connection = (HttpURLConnection) new URL(discordWebhookUrl).openConnection();
@@ -59,13 +63,7 @@ public class Main extends JavaPlugin {
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setDoOutput(true);
 
-                // Format the timestamp in Markdown with backticks
-                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
-                String formattedTimestamp = "`" + timestamp + "`"; // Wrap timestamp with backticks
-
-                // Format the log message in Markdown
-                String jsonMessage = String.format("{\"content\":\"%s **%s** %s\"}", formattedTimestamp, eventType, message);
-
+                String jsonMessage = String.format("{\"content\":\"**%s**: %s\"}", eventType, formattedMessage);
                 try (OutputStream os = connection.getOutputStream()) {
                     byte[] input = jsonMessage.getBytes(StandardCharsets.UTF_8);
                     os.write(input, 0, input.length);
@@ -80,5 +78,21 @@ public class Main extends JavaPlugin {
                 getLogger().severe("Error sending log to Discord: " + e.getMessage());
             }
         });
+    }
+
+    public String getDiscordWebhookUrl() {
+        return discordWebhookUrl;
+    }
+
+    public void setDiscordWebhookUrl(String discordWebhookUrl) {
+        this.discordWebhookUrl = discordWebhookUrl;
+    }
+
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
     }
 }

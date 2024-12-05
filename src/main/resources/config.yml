@@ -2,6 +2,11 @@
 
 discord-webhook-url: "INSERT-WEBHOOK-URL"
 
+# For proxy users (BungeeCord, Velocity, Waterfall e.t.c.) enter in a server name for each individual proxy server, make sure the plugin is installed for each server
+
+# MAKE SURE TO REMOVE THE # IF YOU WANT TO ADD A SERVER NAME
+# server-name: "SERVER NAME"
+
 # Set to true to log, if you do not want to log the items set to false
 
 log-player-join: true
