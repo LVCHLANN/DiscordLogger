@@ -7,7 +7,7 @@
 
     <groupId>com.DiscordLogger</groupId>
     <artifactId>DiscordLogger</artifactId>
-    <version>1.0.2</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>DiscordLogger</name>
@@ -21,12 +21,12 @@
 
     <dependencies>
         <!-- Paper API Dependency -->
-        <dependency>
-            <groupId>io.papermc.paper</groupId>
-            <artifactId>paper-api</artifactId>
-            <version>1.21.3-R0.1-SNAPSHOT</version> <!-- Replace with your server's Paper version -->
-            <scope>provided</scope>
-        </dependency>
+    <dependency>
+        <groupId>org.spigotmc</groupId>
+        <artifactId>spigot-api</artifactId>
+        <version>1.21.5-R0.1-SNAPSHOT</version>
+        <scope>provided</scope>
+    </dependency>
 
         <!-- JSON Library for webhook payload -->
         <dependency>
