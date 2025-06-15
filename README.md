@@ -1,7 +1,3 @@
-# THIS PROJECT HAS BEEN ARCHIVED, READ BELOW
-
-**This project has been archived as I became unmotivated to continue, one day if I regain motivation I might continue to develop it, but for now I am making it archived, this means it won't be updated for future version and may or may not work**
-
 ### DiscordLogger
 
 This plugin is a must have utility for Minecraft Server management, logging actions in your Minecraft Server to a Discord Webhook
