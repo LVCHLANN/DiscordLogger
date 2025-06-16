@@ -136,7 +136,7 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelin
 ## 🧑‍💻 Development & Build Information
 
 - Developed using **Java 17** to ensure compatibility with modern Minecraft server versions.  
-- The plugin is currently built manually; no Gradle or Maven build files are included yet.  
+- The plugin is currently built using Maven.
 - Source code is located in `/src/main/java`.  
 - Contributions to introduce build automation are welcome.
 
