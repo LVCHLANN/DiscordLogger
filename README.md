@@ -1,133 +1,102 @@
-# 📘 DiscordLogger
+# DiscordLogger
 
-**DiscordLogger** is a lightweight Minecraft plugin that logs player activity and server events to a Discord channel using a webhook.
-
-Currently in early development (**v1.0.4**), DiscordLogger offers basic plain-text logging for select events — but aims to become a full-featured logging and moderation tool for Minecraft server owners.
+A Minecraft plugin that logs key server events and sends them to a Discord webhook — perfect for server owners, moderators, or admins who want to monitor activity in real time, even when they're not online.
 
 ---
 
 ## ✅ Current Features (v1.0.4)
 
-✔️ Logs the following events to Discord using **plain text** messages:
-
-- Player Join
-- Player Quit
-- Player Chat
-- Player Death
-- Block Break
-- Block Place
-- Server Commands
-
-✔️ Configurable via a simple `config.yml`  
-✔️ Uses a Discord webhook for message delivery  
-✔️ Lightweight and easy to install  
-✔️ Live configuration reloading with `/discordlogger reload`
+- 🔗 Webhook integration with custom server name support
+- 📥 Simple, readable text messages for Discord
+- 🎮 Player-based logging:
+  - Player join
+  - Player quit
+  - Player chat
+  - Player death
+- ⛏️ Block event logging:
+  - Block break
+  - Block place
+- 🛠️ Server command logging:
+  - Commands run from console
 
 ---
 
-## ⚙️ Configuration
+## 🔧 Configuration
 
-After running the plugin once, a `config.yml` file will be generated inside the `plugins/DiscordLogger/` directory.
-
-You can toggle which events get logged by editing the file:
+Modify `config.yml` to toggle each event individually and set your webhook URL:
 
 ```yaml
 server-name: "MyServer"
 webhook-url: "https://discord.com/api/webhooks/your-webhook-id"
 
-log-player-join: true
-log-player-quit: true
-log-player-chat: true
-log-server-command: false
-log-block-break: false
-log-block-place: false
-log-player-death: false
+player-events:
+  log-player-join: true
+  log-player-quit: true
+  log-player-chat: true
+  log-player-death: true
+
+block-and-world-events:
+  log-block-break: false
+  log-block-place: false
+
+server-admin-events:
+  log-server-command: false
 ```
 
-Use `/discordlogger reload` to apply config changes without restarting the server.
+For the full configuration file layout, see [`config.yml`](./src/main/resources/config.yml).
 
 ---
 
-## 📦 Installation
+## 📚 Documentation
 
-1. Download the latest release from the [Releases Page](https://github.com/LVCHLANN/DiscordLogger/releases).
-2. Place the `.jar` file into your server's `plugins/` folder.
-3. Restart the server.
-4. Edit `plugins/DiscordLogger/config.yml` to match your desired logging setup.
-5. Reload the config (optional):  
-   ```bash
-   /discordlogger reload
-   ```
+Learn more about each event category and when/why to enable them:
 
-> 🔧 You must supply a valid [Discord Webhook URL](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) in the config file.
+- [🧍 Player Events](docs/player-events.md)
+- [⛏️ Block & World Events](docs/block-events.md)
+- [🐮 Entity Events](docs/entity-events.md)
+- [🛠️ Server Admin Events](docs/server-admin-events.md)
+- [🎒 Inventory Events](docs/inventory-events.md)
+- [🧪 Custom Events](docs/custom-events.md)
 
 ---
 
-## 📋 Example Log Message (v1.0.4)
+## 🚀 Planned Features
 
-```
-[16-06-2025 14:30:12] Player Join: [Survival] Steve
-[16-06-2025 14:32:00] Player Chat: [Creative] Alex: Hello!
-[16-06-2025 14:33:45] Block Break: [Survival] Steve broke STONE at X:123 Y:64 Z:-45
-```
+Coming in future versions:
 
-Messages are delivered in **plain text**, timestamped, and prefixed with the server name (if configured).
-
----
-
-## 🚧 Planned Features
-
-These features are not available in v1.0.4 but are actively being developed for future versions:
-
-### 🔜 Event Logging Expansion
-- Teleports, Kicks, Bans, Advancements
-- Inventory actions (open, click, trades)
-- Entity spawn, damage, and death
-- Server lifecycle events (plugin enable/disable, world saves)
-- AFK detection, staff mode toggles, suspicious commands
-
-### 🎨 Improved Message Formatting
-- Full **Discord Embed** support
-- Color-coded categories and icons
-- Contextual fields like world, coordinates, item names, etc.
-
-### 🛠️ Config File Overhaul
-- Category-based organization for event toggles
-- Cleaner structure and optional advanced settings
-
-### ⚠️ In-Discord Error Logging
-- User-friendly formatting for plugin-level (not webhook) errors
-- Excludes Discord webhook delivery failures
-
-### 🔁 Multi-Webhook Support (Planned)
-- Different event categories can be routed to different channels
+- 📦 Discord embeds for rich formatting
+- 🧹 Cleaner formatting per event type
+- 📄 Additional logging:
+  - Player commands, interactions, advancement, item pickup/drop
+  - Entity spawn, damage, and death
+  - World events (ignite, burn, chunk load/unload)
+  - Inventory and GUI usage
+- 🔍 Keyword/command alerts
+- 👥 Staff mode, IP logins, AFK tracking
+- 🌐 Remote command logging and plugin state changes
 
 ---
 
-## 🧪 Commands
+## 📥 Installation
 
-| Command                    | Description                    | Permission       |
-|----------------------------|--------------------------------|------------------|
-| `/discordlogger reload`    | Reloads the config on the fly  | `discordlogger.reload` |
+1. Download the latest release from the [Releases tab](https://github.com/LVCHLANN/DiscordLogger/releases)
+2. Drop the `.jar` into your server’s `/plugins/` folder
+3. Restart the server
+4. Edit `config.yml` and reload the plugin
 
 ---
 
 ## 🤝 Contributing
 
-Have an idea? Want to help code? Contributions are welcome!
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) (coming soon) for how to get started.
-
----
-
-## 📄 License
-
-Licensed under the [MIT License](LICENSE).
+Pull requests are welcome! Please:
+- Match the code style used in the project
+- Test changes thoroughly
+- Document new features in the appropriate `docs/*.md` file
 
 ---
 
-## 🔗 Useful Links
+## 🪪 License
 
-- [Releases](https://github.com/LVCHLANN/DiscordLogger/releases)
-- [Issue Tracker](https://github.com/LVCHLANN/DiscordLogger/issues)
-- Planned docs coming soon: `docs/` folder with detailed explanations of each logging category
+This plugin is licensed under the MIT License. See [LICENSE](./LICENSE) for more info.
+
+---
