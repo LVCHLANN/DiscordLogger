@@ -1,7 +1,7 @@
 # 🔌 DiscordLogger
 
 ![Version](https://img.shields.io/badge/version-v1.0.4-blue)  
-![Minecraft](https://img.shields.io/badge/minecraft-1.20.x-green)  
+![Minecraft](https://img.shields.io/badge/minecraft-1.21.5-green)  
 ![License](https://img.shields.io/github/license/LVCHLANN/DiscordLogger)  
 ![Status](https://img.shields.io/badge/status-active-brightgreen)  
 ![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-yellow)  
