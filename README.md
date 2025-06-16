@@ -1,47 +1,67 @@
-### DiscordLogger
+# DiscordLogger
 
-This plugin is a must have utility for Minecraft Server management, logging actions in your Minecraft Server to a Discord Webhook
+A Spigot/Paper plugin that sends Minecraft server logs to a Discord channel via webhooks.
 
-**FEATURES**
+---
 
-- Logging to a Discord Webhook
-- Customize what is logged (e.g. turning on and off logging of chat messages)
-- Reload feature (for easy customization without having to restart the server)
+## ⚙️ Features
 
-**FEATURES PLANNED**
+- **Real-time Log Forwarding**: Automatically sends server logs to a specified Discord webhook.
+- **Selective Logging**: Customize which log types are forwarded (e.g., chat messages, player actions).
+- **Dynamic Configuration**: Use the `/discordlogger reload` command to apply changes without restarting the server.
+- **Proxy Support**: Enhanced logging to indicate the origin of messages.
+- **Improved Formatting**: Future updates will include clearer and more detailed log formatting.
 
-- Updated proxy support (make it clear where the logs are coming from)
-- Updated formatting to make logs clearer and more detailed
-- More logging options
-- Better customization
-- BUG FIXES FOR DAYS
+---
 
-### HOW TO INSTALL
+## 🚀 Installation
 
-Download the .jar file from GitHub and add to your servers plugin folder (if you do not have a plugin folder confirm you have installed Spigot correctly)
+1. Download the latest `.jar` file from the [Releases](https://github.com/LVCHLANN/DiscordLogger/releases) section.
+2. Place the `.jar` file into your server's `plugins` directory.
+3. Restart your server to generate the configuration files.
+4. Edit `config.yml` to set your Discord webhook URL and adjust logging preferences.
 
-Launch the server, then inside the plugins folder open the newly created DiscordLogger folder
+---
 
-Open config.yml
+## 🛠️ Configuration
 
-Copy the Discord Webhook URL you will create in the next steps
+The plugin's behavior is controlled via the `config.yml` file located in the `plugins/DiscordLogger` directory. Key settings include:
 
-Customize to your liking (toggle different logs on/off)
+- `webhook_url`: Your Discord webhook URL.
+- `log_chat`: Set to `true` to log chat messages.
+- `log_player_actions`: Set to `true` to log player actions.
 
-### HOW TO CREATE DISCORD WEBHOOK
+After making changes to the configuration, use the `/discordlogger reload` command to apply them without restarting the server.
 
-**DISCLAIMER: YOU WILL NEED THE MANAGE WEBHOOKS PERMISSION IN YOUR DISCORD SERVER TO ADD A WEBHOOK, IF YOU DO NOT HAVE THIS PERMISSION, ASK A SERVER ADMIN TO FOLLOW THESE STEPS**
+---
 
-Open up the Discord Channel you would like the logs to be sent to
+## 📦 Planned Features
 
-Go into the Edit Channel menu (little gear cog on the right of the channel on Desktop)
+- **Enhanced Proxy Support**: Improve clarity on log origins.
+- **Advanced Formatting Options**: Offer more detailed and customizable log formats.
+- **Additional Logging Options**: Provide more granular control over what gets logged.
 
-Go to Intergrations
+---
 
-Go to Webhooks
+## 🧪 Development & Contributions
 
-Press New Webhook
+This plugin is currently in its early stages. Contributions are welcome! To contribute:
 
-Click on the new Webhook to view webhook info
+1. Fork the repository.
+2. Clone your fork locally.
+3. Create a new branch for your feature or fix.
+4. Make your changes and commit them.
+5. Push your changes to your fork.
+6. Open a pull request with a clear description of your changes.
 
-Name the webhook whatever you want and add an icon if you want, then click Copy Webhook URL
+---
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/LVCHLANN/DiscordLogger/blob/main/LICENSE) file for details.
+
+---
+
+## 📞 Support
+
+For issues or feature requests, please open an issue in the [Issues](https://github.com/LVCHLANN/DiscordLogger/issues) section of the repository.
