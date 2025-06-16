@@ -26,13 +26,10 @@ After first launch, a config file will be created here:
 
 `/plugins/DiscordLogger/config.yml`
 
-At a minimum, you should set:
+You should then locate this line, and set your [Webhook URL](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks):
 
 ```yaml
-server-name: "Survival"
 webhook-url: "https://discord.com/api/webhooks/your-webhook-id"
-log-player-join: true
-log-player-quit: true
 ```
 
 You can toggle logging for different events using `true` or `false`.
