@@ -14,7 +14,6 @@ body:
       description: "Select whether you're reporting a bug or requesting a feature."
     validations:
       required: true
-    default: 0  # 0 = Bug Report
 
   - type: input
     id: summary
