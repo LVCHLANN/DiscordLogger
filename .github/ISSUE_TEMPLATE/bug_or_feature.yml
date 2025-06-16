@@ -1,0 +1,74 @@
+name: Bug Report or Feature Request
+description: Report a bug or request a feature for DiscordLogger
+title: "[{{ type }}] {{ summary }}"
+labels: []
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: "Type of issue"
+      options:
+        - Bug Report
+        - Feature Request
+        - Other
+      description: "Select whether you're reporting a bug or requesting a feature."
+      default: Bug Report
+
+  - type: input
+    id: summary
+    attributes:
+      label: "Summary"
+      description: "A brief summary of your issue or feature request."
+      placeholder: "Describe the issue or feature"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "Provide a detailed description of the issue or feature."
+      placeholder: "Explain the problem or feature in detail"
+
+  - type: steps
+    id: steps_to_reproduce
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Steps to reproduce the issue (if reporting a bug)."
+      placeholder: "1. Step one\n2. Step two\n3. Step three"
+      min_length: 0
+    validations:
+      required: false
+
+  - type: input
+    id: expected_behavior
+    attributes:
+      label: "Expected Behavior"
+      description: "What you expected to happen."
+      placeholder: "Describe what you expected"
+
+  - type: input
+    id: minecraft_version
+    attributes:
+      label: "Minecraft Version"
+      description: "The Minecraft version you're running."
+      placeholder: "e.g. 1.20.4"
+
+  - type: input
+    id: server_type
+    attributes:
+      label: "Server Type"
+      description: "e.g. Paper, Spigot"
+      placeholder: "e.g. Paper"
+
+  - type: input
+    id: plugin_version
+    attributes:
+      label: "DiscordLogger Plugin Version"
+      description: "The version of DiscordLogger you are using."
+      placeholder: "e.g. v1.0.4"
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: "Add any other context, logs, screenshots, or information."
+      placeholder: "Add logs, screenshots, or other helpful info here."

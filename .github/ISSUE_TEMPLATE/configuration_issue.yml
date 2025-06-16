@@ -1,0 +1,32 @@
+name: Configuration or Setup Issue
+description: Report issues or questions about configuring DiscordLogger
+title: "[CONFIG] {{ summary }}"
+labels: []
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: "Summary"
+      description: "Brief description of your configuration issue."
+      placeholder: "Describe your config issue"
+
+  - type: textarea
+    id: config_snippet
+    attributes:
+      label: "Configuration Snippet"
+      description: "Paste your relevant config.yml snippet here."
+      placeholder: "Paste your config snippet"
+
+  - type: textarea
+    id: error_messages
+    attributes:
+      label: "Error Messages or Logs"
+      description: "Paste any related error messages or logs."
+      placeholder: "Paste errors or logs here"
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: "Any other information you think might help."
+      placeholder: "Add any other info here"
