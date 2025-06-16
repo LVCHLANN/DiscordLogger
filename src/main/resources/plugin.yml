@@ -1,5 +1,5 @@
 name: DiscordLogger
-version: 1.0.3
+version: 1.0.4
 main: com.DiscordLogger.Main
 api-version: 1.21
 description: A plugin to log player events to Discord via a webhook.
