@@ -192,5 +192,5 @@ If you're interested in updates, future features, or discussions, follow the pro
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/LVCHLANN">LVCHLANN (with additional programming done by ChatGPT)</a>
+  Made with ❤️ by <a href="https://github.com/LVCHLANN">LVCHLANN</a> (with additional programming done by ChatGPT)
 </p>
