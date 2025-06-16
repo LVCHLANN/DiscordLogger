@@ -12,7 +12,9 @@ body:
         - Feature Request
         - Other
       description: "Select whether you're reporting a bug or requesting a feature."
-      default: Bug Report
+    validations:
+      required: true
+    default: 0  # 0 = Bug Report
 
   - type: input
     id: summary
@@ -20,6 +22,8 @@ body:
       label: "Summary"
       description: "A brief summary of your issue or feature request."
       placeholder: "Describe the issue or feature"
+    validations:
+      required: true
 
   - type: textarea
     id: description
@@ -27,14 +31,15 @@ body:
       label: "Description"
       description: "Provide a detailed description of the issue or feature."
       placeholder: "Explain the problem or feature in detail"
+    validations:
+      required: true
 
-  - type: steps
+  - type: textarea
     id: steps_to_reproduce
     attributes:
       label: "Steps to Reproduce"
       description: "Steps to reproduce the issue (if reporting a bug)."
       placeholder: "1. Step one\n2. Step two\n3. Step three"
-      min_length: 0
     validations:
       required: false
 
@@ -44,6 +49,8 @@ body:
       label: "Expected Behavior"
       description: "What you expected to happen."
       placeholder: "Describe what you expected"
+    validations:
+      required: false
 
   - type: input
     id: minecraft_version
@@ -51,6 +58,8 @@ body:
       label: "Minecraft Version"
       description: "The Minecraft version you're running."
       placeholder: "e.g. 1.20.4"
+    validations:
+      required: false
 
   - type: input
     id: server_type
@@ -58,6 +67,8 @@ body:
       label: "Server Type"
       description: "e.g. Paper, Spigot"
       placeholder: "e.g. Paper"
+    validations:
+      required: false
 
   - type: input
     id: plugin_version
@@ -65,6 +76,8 @@ body:
       label: "DiscordLogger Plugin Version"
       description: "The version of DiscordLogger you are using."
       placeholder: "e.g. v1.0.4"
+    validations:
+      required: false
 
   - type: textarea
     id: additional_context
@@ -72,3 +85,5 @@ body:
       label: "Additional Context"
       description: "Add any other context, logs, screenshots, or information."
       placeholder: "Add logs, screenshots, or other helpful info here."
+    validations:
+      required: false
