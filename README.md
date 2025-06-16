@@ -5,157 +5,192 @@
 ![License](https://img.shields.io/github/license/LVCHLANN/DiscordLogger)  
 ![Status](https://img.shields.io/badge/status-active-brightgreen)  
 ![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-yellow)  
-![Java](https://img.shields.io/badge/built_with-Java_17-red)
+![Java](https://img.shields.io/badge/built_with-Java_17-red)  
+![Build System](https://img.shields.io/badge/build-Maven-blueviolet)
 
 ---
 
 ## 📖 Overview
 
-**DiscordLogger** is a lightweight Minecraft server plugin designed to send server events and player activity logs directly to a Discord channel via webhook.
+**DiscordLogger** is a lightweight and flexible Minecraft server plugin designed to send server events directly to a Discord channel using webhooks. It empowers server administrators, moderators, and communities to monitor server activity in real-time without needing to be in-game or checking server logs manually.
 
-With minimal configuration, server admins can receive real-time notifications for key Minecraft events, enhancing server monitoring and moderation.
+Whether you're running a small private server or a large multiplayer network, DiscordLogger provides clear, concise, and structured logging output to Discord that enhances oversight, improves moderation response times, and increases player accountability.
 
----
+Key benefits include:
 
-## ⚙️ Features (v1.0.4)
-
-Currently, DiscordLogger supports **plain text logging** for a core set of Minecraft events, including:
-
-- 👋 Player Join  
-- 🚪 Player Quit  
-- 💬 Player Chat  
-- ☠️ Player Death  
-- 🧱 Block Break  
-- 🪓 Block Place  
-- 📝 Server Command Execution  
-
-Each event log can be individually toggled on or off in the configuration file, giving admins control over what information is sent to Discord.
-
-> ⚠️ **Important:**  
-> Advanced features such as **Discord embed support**, **rich formatting**, **extended event logging**, and **improved error handling** are planned for future releases.
+- 🔍 Real-time event tracking via Discord
+- 💬 Easy-to-read message formatting
+- ⚙️ Fully configurable to match your needs
+- 🚀 Extremely lightweight and fast
+- 🧱 Works with any Bukkit-based Minecraft server (e.g., Paper, Spigot)
 
 ---
 
-## 🚀 Installation
+## ⚙️ Features in v1.0.4
 
-Follow these steps to get started with DiscordLogger:
+The current version (v1.0.4) supports **basic logging via plain-text messages** using a simple configuration-based system.
 
-1. Download the latest release `DiscordLogger-v1.0.4.jar` from the [Releases](https://github.com/LVCHLANN/DiscordLogger/releases) page.  
-2. Place the JAR file into your Minecraft server's `plugins` directory.  
-3. Start or restart your Minecraft server to generate the default `config.yml` file.  
-4. Open the `config.yml` and configure the plugin according to your preferences (see below).
+### ✅ Available Event Logging Options
+
+- 👋 **Player Join** – Log player join messages to Discord
+- 🚪 **Player Quit** – Log when a player leaves the server
+- 💬 **Player Chat** – Log chat messages (toggleable)
+- ☠️ **Player Death** – Log death messages with cause
+- 🧱 **Block Break** – Log block breaking (optional)
+- 🪓 **Block Place** – Log block placing (optional)
+- 📝 **Server Commands** – Log commands issued by the server console
+
+### 🔐 Configurable Options
+
+You can toggle each logging feature from the config file. The plugin also supports specifying a server name prefix for better identification across multiple servers.
 
 ---
 
-## 🛠 Configuration
+## 🔧 Installation Guide
 
-The configuration file `config.yml` is created upon the plugin's first run in the `plugins/DiscordLogger` folder.
+Setting up DiscordLogger takes only a few minutes!
 
-### Example `config.yml` (v1.0.4):
-```yaml
-server-name: "MyMinecraftServer"  
-webhook-url: "https://discord.com/api/webhooks/your-webhook-id"
+### 📥 Step 1: Download
 
-log-player-join: true  
-log-player-quit: true  
-log-player-chat: true  
-log-player-death: true  
-log-block-break: false  
-log-block-place: false  
-log-server-command: false
+Download the latest `.jar` file from the [Releases](https://github.com/LVCHLANN/DiscordLogger/releases) page.
+
+### 📁 Step 2: Install
+
+Place the downloaded `.jar` file into your Minecraft server's `plugins/` directory.
+
+### 🚀 Step 3: Start the Server
+
+Launch or restart your server to allow the plugin to generate its config files.
+
+### 🛠 Step 4: Configure
+
+Open `plugins/DiscordLogger/config.yml` and paste in your Discord webhook URL. You can also toggle the events you want to log.
+
+---
+
+## 🧪 Example Output
+
+Here’s what log messages look like in Discord with the default plain text format:
+
+```
+[Survival] Player Join: Lachlan  
+[Survival] Player Chat: Lachlan: Let's explore!  
+[Survival] Player Death: Lachlan tried to swim in lava
 ```
 
-### Configuration Options Explained:
-
-- **server-name**: The name used to identify your server in Discord messages. This helps distinguish logs if you manage multiple servers.  
-- **webhook-url**: The Discord webhook URL where the logs will be sent. Create this in your Discord server settings under Integrations > Webhooks.  
-- **log-player-join**: Enable or disable logging of player join events.  
-- **log-player-quit**: Enable or disable logging of player quit events.  
-- **log-player-chat**: Enable or disable logging of chat messages sent by players.  
-- **log-player-death**: Enable or disable logging of player deaths with details.  
-- **log-block-break**: Enable or disable logging of block break events.  
-- **log-block-place**: Enable or disable logging of block place events.  
-- **log-server-command**: Enable or disable logging of commands executed on the server console.
-
----
-
-## 📝 Usage
-
-Once installed and configured:
-
-- All enabled events will be sent as plain text messages to your configured Discord webhook.  
-- Each log message includes the server name and event details, making it easy to track activity in your Minecraft server from Discord.  
-- Example of a player join message in Discord:  
-  `[MyMinecraftServer] Player Join: PlayerName has joined the game.`
-
----
-
-## 🔮 Planned Features
-
-The following features are planned for upcoming versions of DiscordLogger to make it more powerful and user-friendly:
-
-- ✨ **Discord Embed Support**  
-  Rich, visually appealing embed messages with colors, icons, and timestamps to improve readability and context.  
-
-- 🔄 **Expanded Event Logging**  
-  Covering additional events such as player commands, teleportation, bans, kicks, advancements, inventory interactions, and more.  
-
-- 🛡️ **Advanced Error Handling**  
-  Errors and warnings will be logged and sent via Discord with clear, actionable messages to help server admins diagnose problems quickly.  
-
-- ⚙️ **Config File Categorization**  
-  Grouping configuration options into categories such as player events, block events, server events, and custom events for easier management.  
-
-- 📚 **Detailed Documentation**  
-  Providing separate markdown files explaining each event type, use cases, and configuration tips for new and experienced users alike.
+These messages appear instantly in the specified Discord channel, providing a live feed of key actions.
 
 ---
 
 ## 📚 Documentation
 
-To help you understand and make the most of DiscordLogger, detailed documentation pages are included in the repository under the `/docs` folder. Each page covers specific event types and features in depth:
+We provide detailed, easy-to-follow documentation for all aspects of the plugin.
 
-- [Player Events](docs/player-events.md) – Learn about the player-related events you can log and how to configure them.  
-- [Block and World Events](docs/block-and-world-events.md) – Details on logging block changes and world events.  
-- [Entity Events](docs/entity-events.md) – Explanation of entity-based events planned for future updates.  
-- [Server Admin Events](docs/server-admin-events.md) – Information on server-side commands and administrative logs.  
-- [Inventory Events](docs/inventory-events.md) – How inventory interactions will be logged.  
-- [Custom Events](docs/custom-events.md) – Plans for customizable and keyword-based logging.  
-- [Error Handling](docs/error-handling.md) – Guidance on error logging and troubleshooting.
+- [🧾 Logging Options Explained](docs/logging-options.md)  
+  Describes each logging toggle and when to use it
+
+- [🛠 Configuration Reference](docs/configuration.md)  
+  Explains every setting in `config.yml`
+
+- [💡 Use Cases & Best Practices](docs/use-cases.md)  
+  Learn how to use DiscordLogger effectively in various server scenarios
+
+- [📥 Webhook Setup Guide](docs/webhook-setup.md)  
+  Step-by-step instructions for creating and using Discord webhooks
+
+- [🪲 Bug/Feature Issue Template](.github/ISSUE_TEMPLATE/bug_or_feature.yml)
+
+- [🤝 Contributing Guidelines](.github/CONTRIBUTING.md)
+
+---
+
+## 🧪 Planned Features (Future Versions)
+
+DiscordLogger will be greatly expanded in future releases. Here's what's on the roadmap:
+
+### 🧾 Additional Logging Types
+
+- 📢 Broadcast messages
+- 🔧 Plugin enable/disable
+- 🔀 Player teleportation
+- 🧍 Entity deaths
+- 🎖️ Player advancements
+- 🎯 Player PvP and PvE hits
+- 📥 Inventory interactions
+- 💼 Staff activity (e.g. use of moderation tools)
+- ⛏️ Block interactions (ignite, piston, explode)
+
+### 🎨 Visual Enhancements
+
+- 📦 Rich Discord **Embed** formatting  
+- 🎨 Color-coded events by type  
+- 💡 Toggleable Markdown in descriptions  
+- 🎭 Emotes and icons for better readability
+
+### 🧰 Technical Improvements
+
+- 🔁 Hot config reloading  
+- 🛑 Better error catching/logging  
+- 🧩 Modular config with categorized toggles  
+- 🧠 Contextual error messages for config issues  
+- 📊 Performance impact metrics  
+- 🔍 Keyword detection & alerts in player messages
+
+---
+
+## 🛠 Building From Source
+
+If you wish to contribute or compile DiscordLogger yourself, here’s how:
+
+### Requirements
+
+- Java 17
+- Maven 3.x
+
+### Build Instructions
+
+```bash
+git clone https://github.com/LVCHLANN/DiscordLogger.git  
+cd DiscordLogger  
+mvn clean package
+```
+
+The final JAR file will be located in the `target/` folder.
 
 ---
 
 ## 🤝 Contributing
 
-Your contributions make DiscordLogger better! Whether it's reporting bugs, suggesting new features, or submitting code improvements, you’re welcome to participate.
+We welcome all kinds of contributions!
 
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines, including code style, branch management, and how to submit pull requests.
+- 🐛 Found a bug? Open an issue or submit a fix.
+- ✨ Have a feature in mind? Create a suggestion.
+- 🧹 Want to help with formatting, localization, or docs? PRs welcome!
 
----
-
-## 🧑‍💻 Development & Build Information
-
-- Developed using **Java 17** to ensure compatibility with modern Minecraft server versions.  
-- The plugin is currently built using Maven.
-- Source code is located in `/src/main/java`.  
-- Contributions to introduce build automation are welcome.
+Before contributing, please read our [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
 ---
 
-## 📄 License
+## 🐞 Reporting Issues
 
-DiscordLogger is licensed under the permissive [MIT License](LICENSE), allowing free use, modification, and distribution.
+For bugs or feature requests, please use our [Bug/Feature Template](.github/ISSUE_TEMPLATE/bug_or_feature.yml).  
+Be as detailed as possible to help us reproduce and resolve problems quickly.
 
 ---
 
-## 🗨 Support & Contact
+## 📘 License
 
-Need help or want to share feedback? Please open an issue on the GitHub repository:
+This project is licensed under the [MIT License](LICENSE).  
+You are free to modify, share, and use the plugin even commercially — just leave attribution intact.
 
-[GitHub Issues](https://github.com/LVCHLANN/DiscordLogger/issues)
+---
+
+## 📣 Stay Connected
+
+If you're interested in updates, future features, or discussions, follow the project on GitHub or star the repository to support development ❤️
 
 ---
 
 <p align="center">
-Made with ❤️ by LVCHLANN  
+  Made with ❤️ by <a href="https://github.com/LVCHLANN">LVCHLANN</a>
 </p>
