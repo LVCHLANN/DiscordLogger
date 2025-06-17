@@ -1,30 +1,39 @@
 package com.DiscordLogger;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 public class Main extends JavaPlugin {
 
     private String discordWebhookUrl;
     private String serverName;
+    private Map<String, String> advancementMap;
 
     @Override
     public void onEnable() {
         try {
             saveDefaultConfig();
             discordWebhookUrl = getConfig().getString("discord-webhook-url");
-            serverName = getConfig().getString("server-name", ""); // Default to empty string if not provided
+            serverName = getConfig().getString("server-name", "");
 
             if (discordWebhookUrl == null || discordWebhookUrl.equals("INSERT-WEBHOOK-URL")) {
                 getLogger().warning("Discord webhook URL is not set in the config file! Please update config.yml.");
             }
 
-            // Register events and command
+            // Load advancements.json
+            saveResource("advancements.json", false); // If not already there
+            loadAdvancementMap();
+
+            // Register listeners and command
             Bukkit.getPluginManager().registerEvents(new EventListener(this), this);
             if (getCommand("discordlogger") != null) {
                 getCommand("discordlogger").setExecutor(new ReloadCommand(this));
@@ -51,7 +60,6 @@ public class Main extends JavaPlugin {
             return;
         }
 
-        // Include server name in the log if specified
         String formattedMessage = serverName.isEmpty()
                 ? message
                 : String.format("[%s] %s", serverName, message);
@@ -70,7 +78,7 @@ public class Main extends JavaPlugin {
                 }
 
                 int responseCode = connection.getResponseCode();
-                if (responseCode != 204) { // 204 is OK for Discord webhooks
+                if (responseCode != 204) {
                     getLogger().warning("Failed to send message to Discord, response code: " + responseCode);
                 }
 
@@ -78,6 +86,19 @@ public class Main extends JavaPlugin {
                 getLogger().severe("Error sending log to Discord: " + e.getMessage());
             }
         });
+    }
+
+    private void loadAdvancementMap() {
+        try (InputStreamReader reader = new InputStreamReader(getResource("advancements.json"), StandardCharsets.UTF_8)) {
+            advancementMap = new Gson().fromJson(reader, new TypeToken<Map<String, String>>() {}.getType());
+            getLogger().info("Loaded " + advancementMap.size() + " advancement mappings.");
+        } catch (Exception e) {
+            getLogger().warning("Failed to load advancements.json: " + e.getMessage());
+        }
+    }
+
+    public String getLocalizedAdvancement(String key) {
+        return advancementMap != null ? advancementMap.getOrDefault(key, key) : key;
     }
 
     public String getDiscordWebhookUrl() {

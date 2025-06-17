@@ -26,7 +26,7 @@ log:
     quit: true                  # Log when a player leaves the server
     chat: true                  # Log player chat messages
     death: true                 # Log player deaths
-    advancement: false          # Log player advancements/achievements (placeholder)
+    advancement: true           # Log player advancements/achievements
     xp-change: false            # Log player XP gain or loss
     teleport: false             # Log player teleport events
     drop-item: false            # Log when a player drops an item
@@ -50,19 +50,17 @@ log:
     command: true               # Log server/console commands executed
 
   staff:
-    executed-command: false     # Log any command executed by players (parsed)
+    executed-command: true      # Log any command executed by players (parsed, catch-all)
     banned-player: false        # Log when a player is banned via /ban
     kicked-player: false        # Log when a player is kicked and by whom
-    muted-player: false         # Log when a player is muted via /mute
-    unmuted-player: false       # Log when a player is unmuted via /unmute
-    warned-player: false        # Log when a player is warned via /warn
-    changed-permissions: false  # Log permission changes (placeholder only)
     opped-player: false         # Log when OP is granted via /op
     deopped-player: false       # Log when OP is removed via /deop
     teleport-other: false       # Log when staff teleport others via /tp or /teleport
     cleared-inventory: false    # Log when inventories are cleared via /clear
     given-items: false          # Log when items are given via /give
     set-gamemode-other: false   # Log when gamemode is changed for others
+
+    command-output-logging: true # Log console output following commands (new feature)
 
 debug:
   listener-register: false      # Log event listener registrations (for debugging)
