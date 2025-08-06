@@ -1,3 +1,6 @@
+# THIS PROJECT IS NOW ARCHIVED AND WILL NOT BE UPDATED FURTHER
+### The project may be revived in the future but for now will not be updated, the repo is still being managed and PRs are still welcome!
+
 # 🔌 DiscordLogger
 
 ![Version](https://img.shields.io/badge/version-v1.0.4-blue)  
@@ -79,28 +82,6 @@ Here’s what log messages look like in Discord with the default plain text form
 ```
 
 These messages appear instantly in the specified Discord channel, providing a live feed of key actions.
-
----
-
-## 📚 Documentation
-
-We provide detailed, easy-to-follow documentation for all aspects of the plugin.
-
-- [🧾 Logging Options Explained](docs/logging-options.md)  
-  Describes each logging toggle and when to use it
-
-- [🛠 Configuration Reference](docs/configuration.md)  
-  Explains every setting in `config.yml`
-
-- [💡 Use Cases & Best Practices](docs/use-cases.md)  
-  Learn how to use DiscordLogger effectively in various server scenarios
-
-- [📥 Webhook Setup Guide](docs/webhook-setup.md)  
-  Step-by-step instructions for creating and using Discord webhooks
-
-- [🪲 Bug/Feature Issue Template](.github/ISSUE_TEMPLATE/bug_or_feature.yml)
-
-- [🤝 Contributing Guidelines](.github/CONTRIBUTING.md)
 
 ---
 
